@@ -1,150 +1,250 @@
 \documentclass[12pt]{article}
-\usepackage{fullpage,mathpazo,amsmath,amssymb,amsfonts,nicefrac,microtype}
 
-\usepackage{hyperref,color,textcomp}
-\definecolor{webgreen}{rgb}{0,.35,0}
-\definecolor{webbrown}{rgb}{.6,0,0}
-\definecolor{RoyalBlue}{rgb}{0,0,0.9}
+% ------------------------------------------------------------
+% Packages
+% ------------------------------------------------------------
+\usepackage[margin=1in]{geometry}
+\usepackage{mathpazo}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{hyperref}
+
 \hypersetup{
-   colorlinks=true, linktocpage=true, pdfstartpage=3, pdfstartview=FitV,
-   breaklinks=true, pdfpagemode=UseNone, pageanchor=true, pdfpagemode=UseOutlines,
-   plainpages=false, bookmarksnumbered, bookmarksopen=true, bookmarksopenlevel=1,
-   hypertexnames=true, pdfhighlight=/O,
-   urlcolor=webbrown, linkcolor=RoyalBlue, citecolor=webgreen,
-   pdfauthor={Chris H. Rycroft},
-   pdfsubject={UW--Madison Math 714 (Fall 2023)},
-   pdfkeywords={},
-   pdfcreator={pdfLaTeX},
-   pdfproducer={LaTeX with hyperref}
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue
 }
-\hypersetup{pdftitle={Math 714: homework 0}}
 
+% ------------------------------------------------------------
+% Custom commands
+% ------------------------------------------------------------
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\R}{\mathbb{R}}
-\newcommand{\PP}{\mathbb{P}}
-\newcommand{\sep}{\,:\,}
-\setlength{\unitlength}{0.5mm}
-\renewcommand{\labelitemii}{$\diamond$}
 
-\pagestyle{empty}
+% ------------------------------------------------------------
+% Title
+% ------------------------------------------------------------
+\title{Math 714 — Assignment 0}
+\author{Tyler Jones}
+\date{Fall 2026}
 
+% ------------------------------------------------------------
 \begin{document}
-\section*{Math 714: Assignment 0}
-\textit{This assignment will not be graded, and consists of several warm-up
-problems that can be used to test and refresh your mathematical and programming
-skills. You do not need to submit your answers.}
+\maketitle
+
+\section*{Instructions}
+This document contains my solutions and computational work for Assignment~0 of Math~714.  
+All problem statements are reproduced below for clarity, followed by my solutions.
+
+\bigskip
+
+% ============================================================
+% Problem 1
+% ============================================================
+\section*{Problem 1}
+Consider the recursive sequence
+
+
+\[
+x_{k+1} = a x_k^2 + b x_k, \qquad k = 0,1,2,\ldots
+\]
+
+
 
 \begin{enumerate}
-  \item Consider the recursive sequence $x_{k+1} = a x_k^2 + bx_k$ for
-    $k\in\{0,1,2,3,\ldots\}$.
-    \begin{enumerate}
-      \item If the sequence converges, to what value or values does it converge?
-      \item Suppose that $x_0$ is arbitrarily close to the value or values above.
-        For what parameters $(a,b)$ does the sequence $x_k$ converge to that value?
-    \end{enumerate}  
-  \item The Chebyshev polynomials $T_k(x)$ can be defined using the recursive relation
-    \[
-    T_k(x) = 2xT_{k-1}(x) - T_{k-2} (x)
-    \]
-    and $T_0(x)=1$, $T_1(x)=x$. Evaluate and plot the Chebyshev polynomial of
-    degree 5 at 101 evenly spaced points in the interval $x\in [-1,1]$. Draw a
-    2D surface plot of the function $T_3(x)T_5(y)$ on a $101\times 101$ grid on
-    the domain $(x,y) \in [-1,1]^2$.
-  \item The IEEE double-precision standard guarantees that for any mathematical
-    operation $\ast$, the floating point operation $\circledast$ satisfies
-    $x\circledast y = (1+\delta) (x \ast y)$ where $|\delta|<\epsilon$ and
-    $\epsilon$ is machine precision.
-    \begin{enumerate}
-      \item Calculate the minimum and maximum possible values of
-        \begin{equation}
-          S=\frac{3}{4+2}
-        \end{equation}
-        when evaluated using floating point arithmetic as $\tilde{S}=3 \oslash
-        (4 \oplus 2)$.
-      \item Show further that if $O(\epsilon^2)$ terms are neglected, then
-        $|S-\tilde{S}|<\lambda \epsilon$, and determine the value of the
-        constant $\lambda$.
-    \end{enumerate}
-  \item For an invertible matrix $A$, define the condition number to be
-    $\kappa(A) = \|A\|\,\|A^{-1}\|$ as discussed in the lectures. Assume that
-    the matrix norm is defined using the Euclidean vector norm.
-    \begin{enumerate}
-      \item Find two $2\times 2$ invertible matrices $B$ and $C$ such that
-        $\kappa(B+C) < \kappa(B) + \kappa(C)$.
-      \item Find two $2\times 2$ invertible matrices $B$ and $C$ such that
-        $\kappa(B+C) > \kappa(B) + \kappa(C)$.
-      \item Suppose that $A$ is a symmetric invertible matrix. Find
-        $\kappa(A^2)$ in terms of $\kappa(A)$.\footnote{You may find it useful
-        to recall that a symmetric matrix $A$ can be
-        written as $A = Q D Q^\mathsf{T}$ where $D$ is diagonal and $Q$ is
-        orthogonal.}
-      \item Does the result from part (c) hold if $A$ is not symmetric? Either
-        prove the result, or find a counterexample.
-      \item For invertible matrices $B$ and $C$, prove that $\kappa(BC) \le
-        \kappa(B) \kappa(C)$. Find examples where
-        $\kappa(BC)=\kappa(B)\kappa(C)$ and $\kappa(BC) <\kappa(B)\kappa(C)$.
-    \end{enumerate}
-  \item The \href{https://en.wikipedia.org/wiki/Gamma_function}{gamma
-    function} is defined as
-    \begin{equation}
-      \Gamma(x) = \int_0^\infty t^{x-1} e^{-t}\,dt
-    \end{equation}
-    and satisfies $(n-1)! = \Gamma(n)$ for integers $n$. Thus the
-    function has the following values:
-    \begin{center}
-      \begin{tabular}{c|r|r|r|r|r|r}
-        $x$ & 1 & 2 & 3 & 4 & 5 & 6 \\
-        \hline
-        $\Gamma(x)$ & 1 & 1 & 2 & 6 & 24 & 120
-      \end{tabular}
-    \end{center}
-    In addition, $\Gamma(\tfrac32)= \tfrac12 \sqrt\pi$.
-    \begin{enumerate}
-      \item For $k=1,2,3,4,5$, calculate polynomials $p_k(x)$ of degree $k$
-        that match $\Gamma(x)$ at the points $x=1,2,\ldots,k+1$. For each
-        polynomial, evaluate the absolute error $|p_k(\tfrac32) -
-        \Gamma(\tfrac32)|$. Which of the polynomials $p_k$ is most accurate?
-      \item For $k=1,2,3,4,5$, calculate polynomials $q_k(x)$ of degree $k$
-        that match $\log(\Gamma(x))$ at the points $x=1,2,\ldots,k+1$.
-        For each polynomial, evaluate the absolute error $|\exp(q_k(\tfrac32))
-        - \Gamma(\tfrac32)|$. Which of the polynomials $q_k$ is most accurate?
-      \item Examine the asymptotic behavior of $|p_k(\tfrac32) -
-        \Gamma(\tfrac32)|$ and $|q_k(\tfrac32) -\Gamma(\tfrac32)|$ as $k \to
-        \infty$.
-    \end{enumerate}
-  \item
-    \begin{enumerate}
-      \item Let $f: \R \to \R$ be a fifth-differentiable function, and $h>0$. By expanding Taylor series for $f(x-h)$ and $f(x+h)$, or otherwise,
-        find coefficients $\alpha,\beta,\gamma \in \R$ such that
-        \begin{equation}
-          f''(x) = \frac{\alpha f(x-h) + \beta f(x) + \gamma f(x+h)}{h^2} + O(h).\label{eq:fd2a}
-        \end{equation}
-      \item Suppose now that $f'$ can also evaluated exactly. Find coefficients
-        $a,b,c,r,s,t\in \R$ such that 
-        \begin{align}
-          f''(x) &= \frac{a f(x-h) + b f(x) + cf(x+h)}{h^2} \nonumber \\
-                 &\phantom{=} + \frac{rf'(x-h) + s f'(x) + t f'(x+h)}{h} + O(h^4).\label{eq:fd2b}
-        \end{align}
-        One approach is to expand Taylor series for $f$ to terms in $h^5$, and
-        Taylor series for $f'$ to terms in $h^4$. Then the coefficients
-        $\vec{b}=(a,b,c,r,s,t)$ can be found as the solutions of a linear
-        system $A \vec{b} = \vec{q}$ for some $A\in \R^{6\times 6}$, and some
-        $\vec{q}\in \R^6$.
-      \item Consider the function
-        \begin{equation}
-          f(x) = e^{4 \sin x}.
-        \end{equation}
-        Calculate $f'$ and $f''$ analytically. Write a program to test your
-        formulae for $f''$ in Eqs.~\eqref{eq:fd2a} \& \eqref{eq:fd2b} at $x=1$,
-        using grid spacings of $h=2^{-k}$ for $k=0,1,2,3,\ldots, 23$.
-        For both formulae, make a log--log plot of the absolute error
-        magnitude $E$ as a function of $h$. In the regime where $E$ is
-        dominated by discretization error, fit the error to the form $E=C h^p$
-        for some constants $C$ and $p$. Discuss if the constants
-        $p$ for the two formulae are consistent with your answers to
-        parts (a) and (b).
-    \end{enumerate}    
+    \item[(a)] If the sequence converges, to what value or values does it converge?
+    \item[(b)] Suppose that $x_0$ is arbitrarily close to the value or values above.  
+    For what parameters $(a,b)$ does the sequence $x_k$ converge to that value?
 \end{enumerate}
+
+\subsection*{Solution}
+% --- Your solution goes here ---
+
+
+% ============================================================
+% Problem 2
+% ============================================================
+\section*{Problem 2}
+The Chebyshev polynomials $T_k(x)$ satisfy the recurrence
+
+
+\[
+T_k(x) = 2x\,T_{k-1}(x) - T_{k-2}(x),
+\qquad T_0(x)=1,\; T_1(x)=x.
+\]
+
+
+
+Evaluate and plot $T_5(x)$ at 101 evenly spaced points in $[-1,1]$.  
+Draw a 2D surface plot of $T_3(x)T_5(y)$ on a $101\times 101$ grid over $(x,y)\in[-1,1]^2$.
+
+\subsection*{Solution}
+% --- Your solution goes here ---
+
+
+% ============================================================
+% Problem 3
+% ============================================================
+\section*{Problem 3}
+The IEEE double-precision standard guarantees that for any operation $\ast$,  
+the floating point operation $\circledast$ satisfies
+
+
+\[
+x \circledast y = (1+\delta)(x \ast y), \qquad |\delta| < \epsilon.
+\]
+
+
+
+\begin{enumerate}
+    \item[(a)] Compute the minimum and maximum possible values of
+    
+
+\[
+    S = \frac{3}{4+2}
+    \]
+
+
+    when evaluated using floating point arithmetic as
+    
+
+\[
+    \tilde{S} = 3 \oslash (4 \oplus 2).
+    \]
+
+
+
+    \item[(b)] Show that if $O(\epsilon^2)$ terms are neglected, then
+    
+
+\[
+    |S - \tilde{S}| < \lambda \epsilon,
+    \]
+
+
+    and determine the constant $\lambda$.
+\end{enumerate}
+
+\subsection*{Solution}
+% --- Your solution goes here ---
+
+
+% ============================================================
+% Problem 4
+% ============================================================
+\section*{Problem 4}
+For an invertible matrix $A$, define the condition number
+
+
+\[
+\kappa(A) = \|A\|\,\|A^{-1}\|.
+\]
+
+
+
+Assume the matrix norm is induced by the Euclidean vector norm.
+
+\begin{enumerate}
+    \item[(a)] Find $2\times 2$ invertible matrices $B$ and $C$ such that  
+    $\kappa(B+C) < \kappa(B) + \kappa(C)$.
+
+    \item[(b)] Find $2\times 2$ invertible matrices $B$ and $C$ such that  
+    $\kappa(B+C) > \kappa(B) + \kappa(C)$.
+
+    \item[(c)] Suppose $A$ is symmetric and invertible.  
+    Find $\kappa(A^2)$ in terms of $\kappa(A)$.
+
+    \item[(d)] Does the result from part (c) hold if $A$ is not symmetric?  
+    Either prove the result or give a counterexample.
+
+    \item[(e)] For invertible matrices $B$ and $C$, prove that  
+    $\kappa(BC) \le \kappa(B)\kappa(C)$.  
+    Give examples where equality holds and where the inequality is strict.
+\end{enumerate}
+
+\subsection*{Solution}
+% --- Your solution goes here ---
+
+
+% ============================================================
+% Problem 5
+% ============================================================
+\section*{Problem 5}
+The gamma function is defined by
+
+
+\[
+\Gamma(x) = \int_0^\infty t^{x-1} e^{-t}\,dt.
+\]
+
+
+
+It satisfies $(n-1)! = \Gamma(n)$ for integers $n$.  
+Also,
+
+
+\[
+\Gamma\!\left(\tfrac32\right) = \tfrac12\sqrt{\pi}.
+\]
+
+
+
+\begin{enumerate}
+    \item[(a)] For $k=1,\ldots,5$, compute polynomials $p_k(x)$ of degree $k$  
+    matching $\Gamma(x)$ at $x=1,2,\ldots,k+1$.  
+    Evaluate the error $\bigl|p_k(\tfrac32) - \Gamma(\tfrac32)\bigr|$.
+
+    \item[(b)] For $k=1,\ldots,5$, compute polynomials $q_k(x)$ of degree $k$  
+    matching $\log\Gamma(x)$ at $x=1,2,\ldots,k+1$.  
+    Evaluate the error $\bigl|\exp(q_k(\tfrac32)) - \Gamma(\tfrac32)\bigr|$.
+
+    \item[(c)] Examine the asymptotic behavior of both errors as $k\to\infty$.
+\end{enumerate}
+
+\subsection*{Solution}
+% --- Your solution goes here ---
+
+
+% ============================================================
+% Problem 6
+% ============================================================
+\section*{Problem 6}
+
+\begin{enumerate}
+    \item[(a)] Let $f:\R\to\R$ be five-times differentiable.  
+    Expand Taylor series for $f(x-h)$ and $f(x+h)$ to derive coefficients  
+    $\alpha,\beta,\gamma$ such that
+    
+
+\[
+    f''(x) = \frac{\alpha f(x-h) + \beta f(x) + \gamma f(x+h)}{h^2} + O(h).
+    \]
+
+
+
+    \item[(b)] Suppose $f'$ can be evaluated exactly.  
+    Find coefficients $a,b,c,r,s,t$ such that
+    \begin{align*}
+        f''(x)
+        &= \frac{a f(x-h) + b f(x) + c f(x+h)}{h^2} \\
+        &\quad + \frac{r f'(x-h) + s f'(x) + t f'(x+h)}{h}
+        + O(h^4).
+    \end{align*}
+
+    \item[(c)] Consider $f(x) = e^{4\sin x}$.  
+    Compute $f'$ and $f''$ analytically.  
+    Write a program to test the formulas in (a) and (b) at $x=1$  
+    using $h = 2^{-k}$ for $k=0,1,\ldots,23$.  
+    Make log–log plots of the error $E$ vs.\ $h$ and fit $E = Ch^p$.  
+    Discuss whether the observed $p$ matches the theoretical order.
+\end{enumerate}
+
+\subsection*{Solution}
+% --- Your solution goes here ---
+
+
+% ------------------------------------------------------------
 \end{document}
